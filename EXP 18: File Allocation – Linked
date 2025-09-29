@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+struct file {
+    char name[10];
+    int start, length;
+} f[10];
+
+int main() {
+    int n, i, j;
+    printf("Enter number of files: ");
+    scanf("%d", &n);
+    for(i=0;i<n;i++) {
+        printf("Enter filename, start block, length: ");
+        scanf("%s%d%d", f[i].name, &f[i].start, &f[i].length);
+    }
+    printf("\nFile\tStart\tLength\tBlocks\n");
+    for(i=0;i<n;i++) {
+        printf("%s\t%d\t%d\t", f[i].name, f[i].start, f[i].length);
+        for(j=0;j<f[i].length;j++) {
+            printf("%d -> ", f[i].start+j);
+        }
+        printf("NULL\n");
+    }
+    return 0;
+}
