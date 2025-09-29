@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int main() {
+    int frames[10], ref[20], n, nf, i, j, k=0, flag, faults=0;
+    printf("Enter number of frames: ");
+    scanf("%d", &nf);
+    printf("Enter length of reference string: ");
+    scanf("%d", &n);
+    printf("Enter reference string: ");
+    for(i=0;i<n;i++) scanf("%d",&ref[i]);
+    for(i=0;i<nf;i++) frames[i]=-1;
+
+    for(i=0;i<n;i++) {
+        flag=0;
+        for(j=0;j<nf;j++) {
+            if(frames[j]==ref[i]) { flag=1; break; }
+        }
+        if(flag==0) {
+            frames[k] = ref[i];
+            k = (k+1)%nf;
+            faults++;
+        }
+        printf("\nFrames: ");
+        for(j=0;j<nf;j++) printf("%d ", frames[j]);
+    }
+    printf("\nTotal Page Faults: %d\n", faults);
+    return 0;
+}
