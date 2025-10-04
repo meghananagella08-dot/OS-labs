@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <dirent.h>
+
+int main() {
+    int fd;
+    struct stat fileStat;
+    DIR *d;
+    struct dirent *dir;
+
+    fd = open("test.txt", O_RDONLY);
+    if(fd == -1) {
+        printf("File not found.\n");
+        return 1;
+    }
+
+    // Get file info
+    fstat(fd, &fileStat);
+    printf("File size: %ld bytes\n", fileStat.st_size);
+
+    // Seek example
+    lseek(fd, 0, SEEK_SET);
+    printf("File pointer reset.\n");
+
+    // Open directory
+    d = opendir(".");
+    if(d) {
+        printf("\nFiles in current directory:\n");
+        while((dir = readdir(d)) != NULL)
+            printf("%s\n", dir->d_name);
+        closedir(d);
+    }
+
+    close(fd);
+    return 0;
+}
