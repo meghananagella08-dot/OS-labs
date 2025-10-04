@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE *fp;
+    char data[100];
+
+    fp = fopen("notes.txt", "w");
+    if(fp == NULL) {
+        printf("File not created.\n");
+        exit(1);
+    }
+
+    printf("Enter text to write: ");
+    fgets(data, sizeof(data), stdin);
+    fputs(data, fp);
+    fclose(fp);
+
+    // Read file content
+    fp = fopen("notes.txt", "r");
+    printf("\nData in file:\n");
+    while(fgets(data, sizeof(data), fp))
+        printf("%s", data);
+    fclose(fp);
+
+    return 0;
+}
